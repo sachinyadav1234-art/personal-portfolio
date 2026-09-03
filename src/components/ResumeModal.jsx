@@ -139,6 +139,10 @@ export default function ResumeModal({ isOpen, onClose }) {
                 <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.frontend}</span>
               </div>
               <div>
+                <span className="font-bold text-slate-900 dark:text-white">System Design: </span>
+                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.systemDesign}</span>
+              </div>
+              <div>
                 <span className="font-bold text-slate-900 dark:text-white">Backend & APIs: </span>
                 <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.backend}</span>
               </div>

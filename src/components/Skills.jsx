@@ -22,7 +22,9 @@ import {
   GitBranch, 
   Boxes, 
   Code2,
-  CheckCircle2
+  CheckCircle2,
+  Lock,
+  Shield
 } from 'lucide-react';
 
 const iconMap = {
@@ -45,7 +47,9 @@ const iconMap = {
   GitBranch,
   Boxes,
   Code2,
-  Code
+  Code,
+  Lock,
+  Shield
 };
 
 export default function Skills() {
@@ -54,7 +58,7 @@ export default function Skills() {
   // Flatten all skills for "All" tab
   const allSkills = skillCategories.flatMap(cat => cat.skills.map(s => ({ ...s, category: cat.category })));
 
-  const tabs = ['All', 'Frontend', 'Backend & APIs', 'Databases & Tools', 'Languages'];
+  const tabs = ['All', 'System Design', 'Backend & APIs', 'Frontend', 'Databases & Tools', 'Languages'];
 
   const displayedSkills = activeTab === 'All' 
     ? allSkills 
