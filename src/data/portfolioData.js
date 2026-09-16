@@ -103,7 +103,7 @@ export const projectsData = [
     featured: true,
     techStack: ["Node.js", "Express.js", "MongoDB", "ACID Transactions", "JWT RBAC", "Postman", "REST APIs"],
     githubUrl: "https://github.com/sachinyadav1234-art/backend-ledger-system",
-    liveUrl: "https://documenter.getpostman.com/view/ledger-api-docs",
+    liveUrl: "https://backend-ledger-v8el.onrender.com",
     architectureBadge: "Double-Entry Engine • ACID Invariants",
     bullets: [
       "Engineered double-entry bookkeeping logic to guarantee zero discrepancy between credits and debits (Σ Debits = Σ Credits) across all multi-party ledger transfers.",
@@ -203,7 +203,7 @@ export const projectsData = [
     featured: true,
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT Auth", "Tailwind CSS", "REST APIs"],
     githubUrl: "https://github.com/sachinyadav1234-art/mern-expense-tracker",
-    liveUrl: "https://mern-expense-tracker-demo.vercel.app",
+    liveUrl: "https://expense-tracer-frontend-gamma.vercel.app",
     architectureBadge: "Layered MVC • Aggregation Pipelines",
     bullets: [
       "Architected secure RESTful APIs with Node.js & Express using JWT authentication and Bcrypt password hashing (12 salt rounds).",
