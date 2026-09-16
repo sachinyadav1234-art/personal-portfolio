@@ -1,5 +1,5 @@
 import React from 'react';
-import { personalInfo } from '../data/portfolioData';
+import { personalInfo, educationData, trainingData } from '../data/portfolioData';
 import profileImg from '../assets/sachin.jpg';
 import { 
   GraduationCap, 
@@ -121,58 +121,43 @@ export default function About() {
               <div className="flex items-center justify-between mb-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">
                   <GraduationCap size={16} />
-                  <span>Academic Background</span>
-                </div>
-                <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300">
-                  2023 – 2027
-                </span>
-              </div>
-
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
-                ABES Engineering College
-              </h3>
-              <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 mb-4">
-                Bachelor of Technology (B.Tech) in Information Technology
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  Key Coursework & Fundamentals:
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-slate-300">
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>Data Structures & Algorithms</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>OOPs in Java</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>Database Management (DBMS)</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>Operating Systems</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>Computer Networks</span>
-                  </div>
-                  <div className="p-2 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    <span>Web Engineering</span>
-                  </div>
+                  <span>Education & Training</span>
                 </div>
               </div>
-            </div>
 
-            <div className="p-3.5 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-200 dark:border-indigo-800/60 flex items-center gap-3">
-              <Award size={22} className="text-indigo-600 dark:text-indigo-400 shrink-0" />
-              <div className="text-xs text-slate-700 dark:text-slate-300">
-                <span className="font-semibold text-slate-900 dark:text-white">Active Participant:</span> Technical events, coding rounds, and competitive hackathons at ABES EC.
+              {/* Education List */}
+              <div className="space-y-4 mb-6">
+                {educationData.map((edu, index) => (
+                  <div key={index} className="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60">
+                    <div className="flex justify-between items-start mb-1">
+                      <h4 className="font-bold text-slate-900 dark:text-white text-sm">
+                        {edu.degree}
+                      </h4>
+                      <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400">
+                        {edu.period}
+                      </span>
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-slate-300 font-medium">
+                      {edu.institution}
+                    </div>
+                    <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold mt-1">
+                      {edu.score}
+                    </div>
+                  </div>
+                ))}
               </div>
+
+              {/* Training Section */}
+              {trainingData.length > 0 && (
+                <div className="p-3.5 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-200 dark:border-indigo-800/60">
+                  <div className="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 mb-1">
+                    Training: {trainingData[0].title}
+                  </div>
+                  <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {trainingData[0].description}
+                  </div>
+                </div>
+              )}
             </div>
 
           </div>

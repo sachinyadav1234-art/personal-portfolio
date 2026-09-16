@@ -53,16 +53,10 @@ const iconMap = {
 };
 
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState('All');
+  const tabs = skillCategories.map(c => c.category);
+  const [activeTab, setActiveTab] = useState(tabs[0] || 'Languages');
 
-  // Flatten all skills for "All" tab
-  const allSkills = skillCategories.flatMap(cat => cat.skills.map(s => ({ ...s, category: cat.category })));
-
-  const tabs = ['All', 'System Design', 'Backend & APIs', 'Frontend', 'Databases & Tools', 'Languages'];
-
-  const displayedSkills = activeTab === 'All' 
-    ? allSkills 
-    : (skillCategories.find(c => c.category === activeTab)?.skills || []).map(s => ({ ...s, category: activeTab }));
+  const displayedSkills = (skillCategories.find(c => c.category === activeTab)?.skills || []).map(s => ({ ...s, category: activeTab }));
 
   return (
     <section id="skills" className="py-20 relative bg-slate-100/50 dark:bg-slate-900/40">

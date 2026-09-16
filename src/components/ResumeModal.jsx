@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { personalInfo, resumeData } from '../data/portfolioData';
-import profileImg from '../assets/sachin.jpg';
+import { resumeData } from '../data/portfolioData';
 import { 
   X, 
   Download, 
@@ -9,9 +8,10 @@ import {
   Check, 
   FileText, 
   MapPin, 
-  Mail 
+  Mail,
+  Phone,
+  ExternalLink
 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
 
 export default function ResumeModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
@@ -23,21 +23,24 @@ export default function ResumeModal({ isOpen, onClose }) {
   };
 
   const handleCopySummary = () => {
-    navigator.clipboard.writeText(resumeData.summary);
+    const text = `${resumeData.header.name}\n${resumeData.header.location} | ${resumeData.header.phone} | ${resumeData.header.email}\nhttps://${resumeData.header.leetcode} | https://${resumeData.header.github} | https://${resumeData.header.linkedin}`;
+    navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const { header, education, technicalSkills, training, projects, achievements, certificates, extracurricular } = resumeData;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/70 backdrop-blur-sm overflow-y-auto animate-fadeIn">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left my-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-slate-900/70 backdrop-blur-sm overflow-y-auto animate-fadeIn">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-4xl w-full max-h-[94vh] overflow-y-auto border border-slate-200 dark:border-slate-800 shadow-2xl relative text-left my-auto flex flex-col">
         
         {/* Sticky Header with Action Controls */}
         <div className="sticky top-0 z-10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FileText size={20} className="text-indigo-600 dark:text-indigo-400" />
             <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg">
-              Sachin Yadav - Resume
+              Sachin Yadav - Official Resume
             </h3>
           </div>
 
@@ -59,131 +62,140 @@ export default function ResumeModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Resume Body */}
-        <div className="p-6 sm:p-8 space-y-6 text-slate-800 dark:text-slate-200 text-sm">
+        {/* Formal Printable Resume Document */}
+        <div className="p-6 sm:p-10 space-y-6 text-slate-900 dark:text-slate-100 font-sans text-xs sm:text-sm leading-relaxed max-w-3xl mx-auto w-full">
           
-          {/* Header Info */}
-          <div className="border-b border-slate-200 dark:border-slate-800 pb-6 flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <img
-              src={profileImg}
-              alt="Sachin Yadav"
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover object-top border-2 border-indigo-500 shadow-md shrink-0"
-            />
-            <div className="text-center sm:text-left flex-1">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-                Sachin Yadav
-              </h1>
-              <p className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm sm:text-base mt-1">
-                B.Tech IT Student (2023–2027) | Software Engineer & Software Developer
-              </p>
-              
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-y-2 gap-x-4 mt-3 text-xs text-slate-500 dark:text-slate-400">
-                <span className="flex items-center gap-1">
-                  <MapPin size={13} /> {personalInfo.location}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Mail size={13} /> {personalInfo.email}
-                </span>
-                <a href={personalInfo.socials.github} target="_blank" rel="noreferrer" className="hover:text-indigo-500 flex items-center gap-1">
-                  <GithubIcon size={13} /> GitHub
-                </a>
-                <a href={personalInfo.socials.linkedin} target="_blank" rel="noreferrer" className="hover:text-indigo-500 flex items-center gap-1">
-                  <LinkedinIcon size={13} /> LinkedIn
-                </a>
-              </div>
+          {/* Resume Header */}
+          <div className="text-center pb-4 border-b-2 border-slate-800 dark:border-slate-200">
+            <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider mb-2 text-slate-900 dark:text-white">
+              {header.name}
+            </h1>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 dark:text-slate-400 font-medium">
+              <span>{header.location}</span>
+              <span>|</span>
+              <span>{header.phone}</span>
+              <span>|</span>
+              <span>{header.email}</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs mt-2 text-indigo-600 dark:text-indigo-400 font-medium">
+              <a href={`https://${header.leetcode}`} target="_blank" rel="noreferrer" className="underline hover:text-indigo-800 dark:hover:text-indigo-300">
+                {header.leetcode}
+              </a>
+              <span>|</span>
+              <a href={`https://${header.github}`} target="_blank" rel="noreferrer" className="underline hover:text-indigo-800 dark:hover:text-indigo-300">
+                {header.github}
+              </a>
+              <span>|</span>
+              <a href={`https://${header.linkedin}`} target="_blank" rel="noreferrer" className="underline hover:text-indigo-800 dark:hover:text-indigo-300">
+                {header.linkedin}
+              </a>
             </div>
           </div>
 
-          {/* Professional Summary */}
+          {/* EDUCATION SECTION */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
-              Professional Summary
-            </h4>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-sm">
-              {resumeData.summary}
-            </p>
-          </div>
-
-          {/* Education */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
               Education
-            </h4>
-            <div className="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700/80">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
-                <span className="font-bold text-slate-900 dark:text-white">
-                  {resumeData.education.degree}
-                </span>
-                <span className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400">
-                  {resumeData.education.duration}
-                </span>
-              </div>
-              <div className="text-xs text-slate-600 dark:text-slate-400">
-                {resumeData.education.college}
-              </div>
-            </div>
-          </div>
-
-          {/* Technical Skills */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">
-              Technical Skills
-            </h4>
-            <div className="space-y-2 text-xs">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">Languages: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.languages}</span>
-              </div>
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">Frontend: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.frontend}</span>
-              </div>
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">System Design: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.systemDesign}</span>
-              </div>
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">Backend & APIs: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.backend}</span>
-              </div>
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">Databases: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.databases}</span>
-              </div>
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white">Tools & Workflow: </span>
-                <span className="text-slate-600 dark:text-slate-300">{resumeData.technicalSkills.developerTools}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Key Projects */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-3">
-              Key Projects
-            </h4>
+            </h2>
             <div className="space-y-3">
-              {resumeData.keyProjects.map((p, i) => (
-                <div key={i} className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80">
-                  <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm mb-1">
-                    {p.name}
+              {education.map((edu, idx) => (
+                <div key={idx}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold">
+                    <span>{edu.degree}, {edu.institution}</span>
+                    <span className="italic font-normal text-slate-600 dark:text-slate-400">{edu.period}</span>
                   </div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {p.desc}
+                  <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                    • {edu.score}
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Achievements */}
+          {/* TECHNICAL SKILLS SECTION */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-2">
-              Achievements & Certifications
-            </h4>
-            <ul className="list-disc pl-5 space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
-              {resumeData.achievements.map((a, i) => (
-                <li key={i}>{a}</li>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Technical Skills
+            </h2>
+            <div className="space-y-1.5 text-xs sm:text-sm">
+              <div><span className="font-bold">• Languages:</span> {technicalSkills.languages}</div>
+              <div><span className="font-bold">• Frontend:</span> {technicalSkills.frontend}</div>
+              <div><span className="font-bold">• Backend:</span> {technicalSkills.backend}</div>
+              <div><span className="font-bold">• Database:</span> {technicalSkills.database}</div>
+              <div><span className="font-bold">• Tools:</span> {technicalSkills.tools}</div>
+              <div><span className="font-bold">• Concepts:</span> {technicalSkills.concepts}</div>
+            </div>
+          </div>
+
+          {/* TRAINING SECTION */}
+          <div>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Training
+            </h2>
+            <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1">
+              {training.map((t, idx) => (
+                <li key={idx}>{t}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* PROJECTS SECTION */}
+          <div>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Projects
+            </h2>
+            <div className="space-y-4">
+              {projects.map((proj, idx) => (
+                <div key={idx}>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between font-bold">
+                    <span>{proj.title}</span>
+                    <span className="italic font-normal text-slate-600 dark:text-slate-400">{proj.tech}</span>
+                  </div>
+                  <div className="text-xs italic text-indigo-600 dark:text-indigo-400 mb-1">
+                    Live: <a href={`https://${proj.live}`} target="_blank" rel="noreferrer" className="underline">{proj.live}</a>
+                  </div>
+                  <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1 text-slate-700 dark:text-slate-300">
+                    {proj.bullets.map((b, bIdx) => (
+                      <li key={bIdx}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ACHIEVEMENTS SECTION */}
+          <div>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Achievements
+            </h2>
+            <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1 text-slate-700 dark:text-slate-300">
+              {achievements.map((ach, idx) => (
+                <li key={idx}>{ach}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CERTIFICATES SECTION */}
+          <div>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Certificates
+            </h2>
+            <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1 text-slate-700 dark:text-slate-300">
+              {certificates.map((cert, idx) => (
+                <li key={idx}>{cert}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* EXTRACURRICULAR SECTION */}
+          <div>
+            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-400 dark:border-slate-600 pb-1 mb-3">
+              Extracurricular
+            </h2>
+            <ul className="list-disc pl-5 text-xs sm:text-sm space-y-1 text-slate-700 dark:text-slate-300">
+              {extracurricular.map((extra, idx) => (
+                <li key={idx}>{extra}</li>
               ))}
             </ul>
           </div>
@@ -191,13 +203,13 @@ export default function ResumeModal({ isOpen, onClose }) {
         </div>
 
         {/* Footer Actions */}
-        <div className="sticky bottom-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+        <div className="sticky bottom-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 mt-auto">
           <button
             onClick={handleCopySummary}
             className="flex items-center gap-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-indigo-600 cursor-pointer"
           >
             {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
-            <span>{copied ? 'Summary Copied' : 'Copy Summary'}</span>
+            <span>{copied ? 'Header Copied' : 'Copy Contact Info'}</span>
           </button>
 
           <div className="flex items-center gap-3">
